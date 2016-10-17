@@ -1,9 +1,22 @@
 require 'test_helper'
 
-class UsersControllerTest < ActionDispatch::IntegrationTest
+class UserTest < ActiveSupport::TestCase
 
-  test "should get new" do
-    get signup_path
-    assert_response :success
+  def setup
+    @user = User.new(name: "Example User", email: "user@example.com")
+  end
+
+  test "should be valid" do
+    assert @user.valid?
+  end
+
+  test "name should be present" do
+    @user.name = ""
+    assert_not @user.valid?
+  end
+
+  test "email should be present" do
+    @user.email = "     "
+    assert_not @user.valid?
   end
 end
